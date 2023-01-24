@@ -6,9 +6,11 @@ import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.homeworkfilms.model.models.UiItem
 
-class FilmViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-    fun onBind(item: FilmData) {
+class FilmViewHolder(itemView: View, private val itemCLick: (String, String) -> Unit) :
+    RecyclerView.ViewHolder(itemView) {
+    fun onBind(item: UiItem.FilmData) {
         val number = itemView.findViewById<TextView>(R.id.tvNumber)
         val rating = itemView.findViewById<TextView>(R.id.tvRating)
         val image = itemView.findViewById<ImageView>(R.id.ivPoster)
@@ -20,8 +22,11 @@ class FilmViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         getPoster(item.imageUrl, image)
         name.text = item.name
         isOscar.isVisible = item.isOscar
-    }
 
+        itemView.setOnClickListener {
+            itemCLick(item.name, item.description)
+        }
+    }
 
     private fun getPoster(url: String, image: ImageView) {
         Glide.with(image)
