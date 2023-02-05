@@ -6,9 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import com.example.homeworkfilms.R
 
 class DescriptionFragment : Fragment() {
+
+    private val args: DescriptionFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,21 +23,9 @@ class DescriptionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.findViewById<TextView>(R.id.title_fr).text = arguments?.getString(KEY_TITLE)
-        view.findViewById<TextView>(R.id.desc).text = arguments?.getString(KEY_DESC)
-    }
-
-    companion object {
-        private val KEY_TITLE = "TITLE_KEY"
-        private val KEY_DESC = "DESC_KEY"
-
-        fun newInstance(title: String, desc: String): DescriptionFragment {
-            val fragment = DescriptionFragment()
-            val args = Bundle()
-            args.putString(KEY_TITLE, title)
-            args.putString(KEY_DESC, desc)
-            fragment.arguments = args
-            return fragment
-        }
+        val name = args.name
+        val description = args.description
+        view.findViewById<TextView>(R.id.title_fr).text = name
+        view.findViewById<TextView>(R.id.desc).text = description
     }
 }

@@ -1,10 +1,12 @@
-package com.example.homeworkfilms.model.models
+package com.example.homeworkfilms.data
 
-import com.example.homeworkfilms.model.models.UiItem.TitleItem
-import com.example.homeworkfilms.model.models.UiItem.FilmData
+import com.example.homeworkfilms.data.models.UiItemResponse
+import com.example.homeworkfilms.data.models.UiItemResponse.TitleItem
+import com.example.homeworkfilms.data.models.UiItemResponse.FilmData
+import javax.inject.Inject
 
-object Server : Repository {
-    override fun getFilms(): List<UiItem> = listOf(
+class Server @Inject constructor() {
+    fun getFilms(): List<UiItemResponse> = listOf(
         TitleItem("Комедия"),
         FilmData(1, "https://b1.filmpro.ru/c/807442.jpg",
             "9.1", "Побег из шоушека", false, "Побег из шоушека топ"),

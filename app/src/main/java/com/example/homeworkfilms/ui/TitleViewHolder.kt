@@ -1,9 +1,10 @@
-package com.example.homeworkfilms
+package com.example.homeworkfilms.ui
 
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.homeworkfilms.model.models.UiItem
+import com.example.homeworkfilms.R
+import com.example.homeworkfilms.domain.UiItem
 
 class TitleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

@@ -1,4 +1,4 @@
-package com.example.homeworkfilms.model.models
+package com.example.homeworkfilms.domain
 
 sealed class UiItem {
     data class FilmData(

@@ -1,9 +1,10 @@
-package com.example.homeworkfilms
+package com.example.homeworkfilms.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.homeworkfilms.model.models.UiItem
+import com.example.homeworkfilms.R
+import com.example.homeworkfilms.domain.UiItem
 import java.lang.Exception
 
 

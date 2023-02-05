@@ -1,4 +1,4 @@
-package com.example.homeworkfilms.model.models
+package com.example.homeworkfilms.domain
 
 interface Repository {
 
