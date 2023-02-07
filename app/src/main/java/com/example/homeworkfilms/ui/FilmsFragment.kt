@@ -3,7 +3,10 @@ package com.example.homeworkfilms.ui
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.*
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -27,11 +30,24 @@ class FilmsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val recycler = view.findViewById<RecyclerView>(R.id.rvFilmList)
+        val progressBar =  view.findViewById<ProgressBar>(R.id.progress)
 
         viewModel.apply {
+            loadingLiveData.observe(viewLifecycleOwner) {
+                if (it) {
+                    progressBar.visibility = VISIBLE
+                } else {
+                    progressBar.visibility = GONE
+                }
+            }
+
+            errorLiveData.observe(viewLifecycleOwner) { res ->
+                Toast.makeText(requireContext(), getString(res), Toast.LENGTH_SHORT).show()
+            }
+
             getFilms()
             liveData.observe(viewLifecycleOwner) {
-                val recycler = view.findViewById<RecyclerView>(R.id.rvFilmList)
                 val itemClick: (String, String) -> Unit = { name, description ->
                     val action = FilmsFragmentDirections.actionFilmsFragmentToDescriptionFragment(name, description)
                     findNavController().navigate(action)

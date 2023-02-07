@@ -7,7 +7,6 @@ import com.example.homeworkfilms.R
 import com.example.homeworkfilms.domain.UiItem
 import java.lang.Exception
 
-
 class FilmAdapter(
     private val listFilmData: List<UiItem>,
     private val itemCLick: (String, String) -> Unit
@@ -24,7 +23,7 @@ class FilmAdapter(
                     LayoutInflater.from(parent.context).inflate(R.layout.text_item, parent, false)
                 TitleViewHolder(view)
             }
-            else -> throw Exception()
+            else -> throw Exception("Invalid Type!")
         }
 
     override fun getItemCount(): Int = listFilmData.size
@@ -40,7 +39,6 @@ class FilmAdapter(
         is UiItem.FilmData -> FILM_TYPE
         is UiItem.TitleItem -> TITLE_TYPE
     }
-
 
     companion object {
         private const val TITLE_TYPE = 1

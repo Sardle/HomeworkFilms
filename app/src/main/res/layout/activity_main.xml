@@ -6,12 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/navFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:navGraph="@navigation/main_graph"
         android:name="androidx.navigation.fragment.NavHostFragment"
         tools:layout="@layout/fragment_films" />
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

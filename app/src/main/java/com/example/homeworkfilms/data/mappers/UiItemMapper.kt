@@ -6,21 +6,23 @@ import javax.inject.Inject
 
 class UiItemMapper @Inject constructor() {
 
-    operator fun invoke(response: UiItemResponse) = when (response) {
-        is UiItemResponse.FilmData -> with(response) {
-            UiItem.FilmData(
-                id = id ?: 0,
-                description = description.orEmpty(),
-                imageUrl = imageUrl.orEmpty(),
-                rating = rating.orEmpty(),
-                name = name.orEmpty(),
-                isOscar = isOscar ?: false,
-            )
+    operator fun invoke(response: List<List<UiItemResponse>>): List<UiItem> {
+        val listFilms = mutableListOf<UiItem>()
+        for (i in response.indices) {
+            listFilms.add(UiItem.TitleItem(response[i][0].category ?: "null"))
+            for (j in response[i]) {
+                listFilms.add(
+                    (UiItem.FilmData(
+                        id = j.id ?: 0,
+                        imageUrl = j.imageUrl.orEmpty(),
+                        rating = j.rating.orEmpty(),
+                        name = j.name.orEmpty(),
+                        isOscar = j.isOscar ?: false,
+                        description = j.description.orEmpty()
+                    ))
+                )
+            }
         }
-        is UiItemResponse.TitleItem -> with(response) {
-            UiItem.TitleItem(
-                title = title.orEmpty()
-            )
-        }
+        return listFilms
     }
 }

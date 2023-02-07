@@ -58,6 +58,7 @@
         android:layout_height="64dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvFilmName"
         app:layout_constraintTop_toTopOf="parent"
         android:src="@drawable/oscar"/>
 
