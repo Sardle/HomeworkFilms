@@ -1,4 +1,4 @@
-package com.example.homeworkfilms.ui
+package com.example.homeworkfilms.ui.films
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,7 +9,7 @@ import java.lang.Exception
 
 class FilmAdapter(
     private val listFilmData: List<UiItem>,
-    private val itemCLick: (String, String) -> Unit
+    private val itemCLick: (String, String, Int) -> Unit,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {

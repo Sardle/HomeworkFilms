@@ -2,4 +2,9 @@
     <string name="app_name">HomeworkFilms</string>
     <string name="fatal">Fatality</string>
     <string name="unknown">Unknown</string>
+    <string name="add_film_to_favorite">Добавить фильм в избранное</string>
+    <string name="remove_film_to_favorite">Удалить фильм из избранного</string>
+    <string name="primer">Primer</string>
+    <string name="open_favorite">Открыть любимые фильмы</string>
+    <string name="no_movies">У вас пока нет любимых фильмов!</string>
 </resources>

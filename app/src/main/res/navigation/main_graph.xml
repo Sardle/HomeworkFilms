@@ -6,16 +6,19 @@
     app:startDestination="@id/filmsFragment">
     <fragment
         android:id="@+id/filmsFragment"
-        android:name="com.example.homeworkfilms.ui.FilmsFragment"
+        android:name="com.example.homeworkfilms.ui.films.FilmsFragment"
         android:label="FilmsFragment"
         tools:layout="@layout/fragment_films">
         <action
             android:id="@+id/action_filmsFragment_to_descriptionFragment"
             app:destination="@id/descriptionFragment" />
+        <action
+            android:id="@+id/action_filmsFragment_to_favoriteFragment"
+            app:destination="@id/favouriteFragment" />
     </fragment>
     <fragment
         android:id="@+id/descriptionFragment"
-        android:name="com.example.homeworkfilms.ui.DescriptionFragment"
+        android:name="com.example.homeworkfilms.ui.description.DescriptionFragment"
         android:label="DescriptionFragment"
         tools:layout="@layout/fragment_description">
         <argument
@@ -26,6 +29,19 @@
             android:name="description"
             android:defaultValue=""
             app:argType="string"/>
+        <argument
+            android:name="id"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+    <fragment
+        android:id="@+id/favouriteFragment"
+        android:name="com.example.homeworkfilms.ui.favorite_films.FavouriteFragment"
+        android:label="FavoriteFragment"
+        tools:layout="@layout/fragment_favorite">
+        <action
+            android:id="@+id/action_favoriteFragment_to_descriptionFragment"
+            app:destination="@id/descriptionFragment" />
     </fragment>
 </navigation>
 

@@ -9,10 +9,27 @@ import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(
     private val mapper: UiItemMapper,
-    private val server: Server
+    private val server: Server,
+    private val user: User
 ) : Repository {
 
     override suspend fun getFilms(): List<UiItem> = withContext(Dispatchers.IO) {
         mapper(server.getFilms())
+    }
+
+    override suspend fun addFilmToFavourite(id: Int) {
+        user.addFilmToFavourite(id)
+    }
+
+    override fun checkFilm(id: Int): Boolean {
+        return user.checkFilm(id)
+    }
+
+    override suspend fun removeFilmFromFavourite(id: Int) {
+        user.removeFilmFromFavourite(id)
+    }
+
+    override suspend fun getUser(): List<UiItem.FilmData> {
+        return user.getUser()
     }
 }

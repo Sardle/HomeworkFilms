@@ -1,10 +1,11 @@
-package com.example.homeworkfilms.ui
+package com.example.homeworkfilms.ui.films
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -32,13 +33,18 @@ class FilmsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val recycler = view.findViewById<RecyclerView>(R.id.rvFilmList)
         val progressBar =  view.findViewById<ProgressBar>(R.id.progress)
+        val button = view.findViewById<Button>(R.id.button)
 
         viewModel.apply {
             loadingLiveData.observe(viewLifecycleOwner) {
                 if (it) {
+                    recycler.visibility = INVISIBLE
+                    button.visibility = INVISIBLE
                     progressBar.visibility = VISIBLE
                 } else {
                     progressBar.visibility = GONE
+                    recycler.visibility = VISIBLE
+                    button.visibility = VISIBLE
                 }
             }
 
@@ -48,14 +54,19 @@ class FilmsFragment : Fragment() {
 
             getFilms()
             liveData.observe(viewLifecycleOwner) {
-                val itemClick: (String, String) -> Unit = { name, description ->
-                    val action = FilmsFragmentDirections.actionFilmsFragmentToDescriptionFragment(name, description)
+                val itemClick: (String, String, Int) -> Unit = { name, description, id ->
+                    val action = FilmsFragmentDirections.actionFilmsFragmentToDescriptionFragment(name, description, id)
                     findNavController().navigate(action)
                 }
                 val adapter = FilmAdapter(it, itemClick)
                 recycler.adapter = adapter
                 recycler.layoutManager = LinearLayoutManager(this@FilmsFragment.context, LinearLayoutManager.VERTICAL, false)
             }
+        }
+
+            button.setOnClickListener {
+            val action = FilmsFragmentDirections.actionFilmsFragmentToFavoriteFragment()
+            findNavController().navigate(action)
         }
     }
 }

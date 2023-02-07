@@ -25,4 +25,15 @@ class UiItemMapper @Inject constructor() {
         }
         return listFilms
     }
+
+    fun mapToUi(response: UiItemResponse): UiItem.FilmData = with(response) {
+        UiItem.FilmData(
+            id = id ?: 0,
+            imageUrl = imageUrl.orEmpty(),
+            rating = rating.orEmpty(),
+            name = name.orEmpty(),
+            isOscar = isOscar ?: false,
+            description = description.orEmpty()
+        )
+    }
 }

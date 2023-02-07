@@ -1,4 +1,4 @@
-package com.example.homeworkfilms.ui
+package com.example.homeworkfilms.ui.films
 
 import android.view.View
 import android.widget.ImageView
@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.homeworkfilms.R
 import com.example.homeworkfilms.domain.UiItem
 
-class FilmViewHolder(itemView: View, private val itemCLick: (String, String) -> Unit) :
+class FilmViewHolder(itemView: View, private val itemCLick: (String, String, Int) -> Unit) :
     RecyclerView.ViewHolder(itemView) {
     fun onBind(item: UiItem.FilmData) {
         val number = itemView.findViewById<TextView>(R.id.tvNumber)
@@ -25,7 +25,7 @@ class FilmViewHolder(itemView: View, private val itemCLick: (String, String) -> 
         isOscar.isVisible = item.isOscar
 
         itemView.setOnClickListener {
-            itemCLick(item.name, item.description)
+            itemCLick(item.name, item.description, item.id)
         }
     }
 

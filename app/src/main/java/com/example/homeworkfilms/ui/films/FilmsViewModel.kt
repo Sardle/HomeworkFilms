@@ -1,4 +1,4 @@
-package com.example.homeworkfilms.ui
+package com.example.homeworkfilms.ui.films
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

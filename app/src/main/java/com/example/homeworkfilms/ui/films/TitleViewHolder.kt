@@ -1,4 +1,4 @@
-package com.example.homeworkfilms.ui
+package com.example.homeworkfilms.ui.films
 
 import android.view.View
 import android.widget.TextView
