@@ -10,30 +10,16 @@ class User @Inject constructor(
     private val server: Server
 ) {
 
-    private suspend fun getFilmById(id: Int): UiItem.FilmData? {
+    private suspend fun getFilmById(id: Int): UiItem.FilmData {
         val list = server.getFilms()
-        for (i in list) {
-            for (j in i) {
-                if (j.id == id) {
-                    return mapper.mapToUi(j)
-                }
-            }
-        }
-        return null
+        return list.flatten().find { it.id == id }?.let { mapper.mapToUi(it) }!!
     }
 
     suspend fun addFilmToFavourite(id: Int) {
-        getFilmById(id)?.let { listFavoriteFilm.add(it) }
+        getFilmById(id).let { listFavoriteFilm.add(it) }
     }
 
-    fun checkFilm(id: Int): Boolean {
-        for (i in listFavoriteFilm) {
-            if (i.id == id) {
-                return true
-            }
-        }
-        return false
-    }
+    fun checkFilm(id: Int) = listFavoriteFilm.any { it.id == id }
 
     suspend fun removeFilmFromFavourite(id: Int) {
         listFavoriteFilm.remove(getFilmById(id))
@@ -44,7 +30,7 @@ class User @Inject constructor(
         return listFavoriteFilm
     }
 
-    companion object {
+    private companion object {
         private val listFavoriteFilm = mutableListOf<UiItem.FilmData>()
     }
 }
