@@ -1,21 +1,21 @@
 package com.example.homeworkfilms.ui.favorite_films
 
-import android.view.View
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.homeworkfilms.R
+import com.example.homeworkfilms.databinding.RvItemFavoriteFilmsBinding
 import com.example.homeworkfilms.domain.UiItem
 
-class FavouriteFilmViewHolder(itemView: View, private val itemCLick: (String, String, Int) -> Unit) :
-    RecyclerView.ViewHolder(itemView) {
+class FavouriteFilmViewHolder(
+    private val binding: RvItemFavoriteFilmsBinding,
+    private val itemCLick: (String, String, Int) -> Unit
+) : RecyclerView.ViewHolder(binding.root) {
     fun onBind(item: UiItem.FilmData) {
-        val rating = itemView.findViewById<TextView>(R.id.tvRating_fav)
-        val image = itemView.findViewById<ImageView>(R.id.ivPoster_fav)
-        val name = itemView.findViewById<TextView>(R.id.tvFilmName_fav)
-        val isOscar = itemView.findViewById<ImageView>(R.id.ivOscar_fav)
+        val rating = binding.tvRatingFav
+        val image = binding.ivPosterFav
+        val name = binding.tvFilmNameFav
+        val isOscar = binding.ivOscarFav
 
         rating.text = item.rating
         getPoster(item.imageUrl, image)

@@ -3,25 +3,28 @@ package com.example.homeworkfilms.ui.films
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.homeworkfilms.R
+import com.example.homeworkfilms.databinding.RvItemFilmsBinding
+import com.example.homeworkfilms.databinding.TextItemBinding
 import com.example.homeworkfilms.domain.UiItem
 import java.lang.Exception
 
 class FilmAdapter(
-    private val listFilmData: List<UiItem>,
-    private val itemCLick: (String, String, Int) -> Unit,
+    private val itemCLick: (String, String, Int) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private val listFilmData = mutableListOf<UiItem>()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
             FILM_TYPE -> {
-                val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.rv_item_films, parent, false)
-                FilmViewHolder(view, itemCLick)
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = RvItemFilmsBinding.inflate(layoutInflater, parent, false)
+                FilmViewHolder(binding, itemCLick)
             }
             TITLE_TYPE -> {
-                val view =
-                    LayoutInflater.from(parent.context).inflate(R.layout.text_item, parent, false)
-                TitleViewHolder(view)
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = TextItemBinding.inflate(layoutInflater, parent, false)
+                TitleViewHolder(binding)
             }
             else -> throw Exception("Invalid Type!")
         }
@@ -38,6 +41,12 @@ class FilmAdapter(
     override fun getItemViewType(position: Int): Int = when (listFilmData[position]) {
         is UiItem.FilmData -> FILM_TYPE
         is UiItem.TitleItem -> TITLE_TYPE
+    }
+
+    fun setItems(items: List<UiItem>) {
+        listFilmData.clear()
+        listFilmData.addAll(items)
+        notifyDataSetChanged()
     }
 
     companion object {

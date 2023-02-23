@@ -2,21 +2,20 @@ package com.example.homeworkfilms.ui.films
 
 import android.view.View
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.homeworkfilms.R
+import com.example.homeworkfilms.databinding.RvItemFilmsBinding
 import com.example.homeworkfilms.domain.UiItem
 
-class FilmViewHolder(itemView: View, private val itemCLick: (String, String, Int) -> Unit) :
-    RecyclerView.ViewHolder(itemView) {
+class FilmViewHolder(private val binding: RvItemFilmsBinding, private val itemCLick: (String, String, Int) -> Unit) :
+    RecyclerView.ViewHolder(binding.root) {
     fun onBind(item: UiItem.FilmData) {
-        val number = itemView.findViewById<TextView>(R.id.tvNumber)
-        val rating = itemView.findViewById<TextView>(R.id.tvRating)
-        val image = itemView.findViewById<ImageView>(R.id.ivPoster)
-        val name = itemView.findViewById<TextView>(R.id.tvFilmName)
-        val isOscar = itemView.findViewById<ImageView>(R.id.ivOscar)
+        val number = binding.tvNumber
+        val rating = binding.tvRating
+        val image = binding.ivPoster
+        val name = binding.tvFilmName
+        val isOscar = binding.ivOscar
 
         number.text = item.id.toString()
         rating.text = item.rating

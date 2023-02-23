@@ -12,27 +12,49 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.homeworkfilms.R
+import com.example.homeworkfilms.databinding.FragmentFavoriteBinding
+import com.example.homeworkfilms.databinding.FragmentFilmsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class FavouriteFragment : Fragment() {
 
+    private var _binding: FragmentFavoriteBinding? = null
+    private val binding get() = _binding!!
     private val viewModel by viewModels<FavouriteViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_favorite, container, false)
+    ): View {
+        _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val recycler = view.findViewById<RecyclerView>(R.id.recycler)
-        val text = view.findViewById<TextView>(R.id.no_movies)
-        val progressBar =  view.findViewById<ProgressBar>(R.id.progress_fav)
+        val recycler = binding.recycler
+        val text = binding.noMovies
+        val progressBar = binding.progressFav
+
+        val itemClick: (String, String, Int) -> Unit = { name, description, id ->
+            val action =
+                FavouriteFragmentDirections.actionFavoriteFragmentToDescriptionFragment(
+                    name,
+                    description,
+                    id
+                )
+            findNavController().navigate(action)
+        }
+        val adapter = FavouriteFilmAdapter(itemClick)
+        recycler.adapter = adapter
+        recycler.layoutManager = LinearLayoutManager(
+            this@FavouriteFragment.context,
+            LinearLayoutManager.VERTICAL,
+            false
+        )
 
         viewModel.apply {
             loadingLiveData.observe(viewLifecycleOwner) {
@@ -49,22 +71,7 @@ class FavouriteFragment : Fragment() {
                 if (it.isEmpty()) {
                     text.visibility = View.VISIBLE
                 }
-                val itemClick: (String, String, Int) -> Unit = { name, description, id ->
-                    val action =
-                        FavouriteFragmentDirections.actionFavoriteFragmentToDescriptionFragment(
-                            name,
-                            description,
-                            id
-                        )
-                    findNavController().navigate(action)
-                }
-                val adapter = FavouriteFilmAdapter(it, itemClick)
-                recycler.adapter = adapter
-                recycler.layoutManager = LinearLayoutManager(
-                    this@FavouriteFragment.context,
-                    LinearLayoutManager.VERTICAL,
-                    false
-                )
+                adapter.setItems(it)
             }
         }
     }
